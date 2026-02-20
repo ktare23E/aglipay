@@ -1,8 +1,11 @@
 import AdminLayout from "@/layouts/admin-layout";
+import { Head } from "@inertiajs/react";
 
 export default function Dashboard() {
     return (
         <AdminLayout>
+            <Head title="Dashboard"/>
+
             <div className="flex flex-col lg:flex-row gap-4 mb-6">
                 <div className="flex-1 bg-indigo-100 border rounded-xl p-6">
                     <h2 className="text-4xl text-blue-900">

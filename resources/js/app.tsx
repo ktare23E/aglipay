@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 import '../css/app.css';
 import { initializeTheme } from './hooks/use-appearance';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Aglipay';
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
@@ -20,7 +20,7 @@ createInertiaApp({
         root.render(
             <StrictMode>
                 <App {...props} />
-            </StrictMode>,  
+            </StrictMode>,
         );
     },
     progress: {
