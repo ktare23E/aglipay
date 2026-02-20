@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { login } from '@/routes';
+import { useState } from 'react';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -46,7 +47,6 @@ export default function Register() {
                                 id="first_name"
                                 name="first_name"
                                 placeholder="First name"
-                                required
                                 value={data.first_name}
                                 onChange={(e) =>
                                     setData('first_name', e.target.value)
@@ -77,7 +77,6 @@ export default function Register() {
                                 type="email"
                                 name="email"
                                 placeholder="email@example.com"
-                                required
                                 value={data.email}
                                 onChange={(e) =>
                                     setData('email', e.target.value)

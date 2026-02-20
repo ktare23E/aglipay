@@ -1,0 +1,134 @@
+import { useEffect, useState } from "react";
+import { Link } from "@inertiajs/react";
+import {usePage} from "@inertiajs/react";
+
+type AdminLayoutProps = {
+    children: React.ReactNode;
+};
+
+export default function AdminLayout({children}: AdminLayoutProps) {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const { url } = usePage();
+
+    const [active, setActive] = useState("dashboard");
+
+
+    const linkClass = (path: string) =>
+        `flex items-center gap-4 py-2 px-3 rounded-sm transition text-sm hover:translate-x-1
+        ${
+            url.startsWith(path)
+                ? "bg-blue-400 text-white"
+                : "text-gray-600 hover:text-indigo-800"
+        }`;
+
+
+
+    const toggleMobileMenu = () => {
+        setSidebarOpen(prev => !prev);
+    };
+
+    // Lock body scroll when sidebar is open (mobile)
+    useEffect(() => {
+        document.body.style.overflow = sidebarOpen ? "hidden" : "";
+    }, [sidebarOpen]);
+
+    // Auto-close sidebar on large screens
+    useEffect(() => {
+        const onResize = () => {
+            if (window.innerWidth >= 1024) {
+                setSidebarOpen(false);
+            }
+        };
+
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+    }, []);
+
+    // Notification pulse animation
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const el = document.getElementById("notification-icon");
+            if (!el) return;
+
+            el.classList.add("scale-110");
+            setTimeout(() => el.classList.remove("scale-110"), 200);
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div className="bg-indigo-50 min-h-screen overflow-x-hidden">
+            {/* Overlay */}
+            <div
+                onClick={toggleMobileMenu}
+                className={`fixed inset-0 bg-indigo-900/50 z-40 transition-opacity duration-300 ${
+                    sidebarOpen ? "opacity-100" : "hidden opacity-0"
+                }`}
+            />
+
+            {/* Header */}
+            <header className="fixed w-full bg-white text-indigo-800 z-50 shadow-lg">
+                <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between h-16">
+                    <button
+                        onClick={toggleMobileMenu}
+                        className="p-2 lg:hidden"
+                    >
+                        <span className="material-icons-outlined text-2xl">
+                            menu
+                        </span>
+                    </button>
+
+                    <div className="text-xl font-bold text-blue-900">
+                        Admin<span className="text-indigo-800">Panel</span>
+                    </div>
+
+
+                </div>
+            </header>
+
+            <div className="pt-16 max-w-7xl mx-auto flex">
+                {/* Sidebar */}
+                <aside
+                    className={`fixed lg:static w-[240px] bg-indigo-50 h-[calc(100vh-4rem)] lg:h-auto z-45 overflow-y-auto p-4 transition-transform duration-300 ${
+                        sidebarOpen ? "translate-x-0" : "-translate-x-full"
+                    } lg:translate-x-0`}
+                >
+                    <div className="bg-white rounded-xl shadow-lg mb-6 p-4">
+                        <Link
+                            href="/dashboard"
+                            className={linkClass("/dashboard")}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+                            </svg>
+                            Dashboard
+                        </Link>
+                        <Link
+                            href="/documents"
+                            className={linkClass("/documents")}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                            </svg>
+
+                            Documents
+                        </Link>
+
+
+                    </div>
+
+                    <div className="bg-white rounded-xl shadow-lg p-4">
+                        <button>logout</button>
+                    </div>
+                </aside>
+
+                {/* Main */}
+                <main className="flex-1 p-4">
+                    {children}
+                </main>
+            </div>
+        </div>
+    );
+}

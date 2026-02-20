@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -26,10 +27,14 @@ return Inertia::render('testing',[
     ]);
 });
 
+Route::get('/dashboard',[DashboardController::class,'admin'])->name('dashboard');
+
+Route::get('/documents',function(){
+    return Inertia::render('admin/documents/index');
+})->name('documents');
+
+
 Route::post('/submit',[FormController::class,'store'])->name('submit');
 
-Route::get('dashboard', function () {
-    return Inertia::render('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/settings.php';
