@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,8 +30,16 @@ return Inertia::render('testing',[
 
 Route::get('/dashboard',[DashboardController::class,'admin'])->name('dashboard');
 
+
+Route::get('/edit_user/{user}',[UserController::class,'edit'])->name('edit_user');
+Route::get('/view_user/{user}',[DashboardController::class,'admin'])->name('view_user');
+
 Route::get('/documents',function(){
-    return Inertia::render('admin/documents/index');
+    $users = User::all();
+
+    return Inertia::render('admin/documents/index',[
+        'users' => $users
+    ]);
 })->name('documents');
 
 

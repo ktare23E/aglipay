@@ -39,6 +39,12 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
+        {{-- datatables --}}
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
+        <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+
         {{-- sweet alert --}}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @routes

@@ -87,7 +87,7 @@ export default function AdminLayout({children}: AdminLayoutProps) {
                 </div>
             </header>
 
-            <div className="pt-16 max-w-7xl mx-auto flex">
+            <div className="pt-16 max-w-8xl mx-auto flex">
                 {/* Sidebar */}
                 <aside
                     className={`fixed lg:static w-[240px] bg-indigo-50 h-[calc(100vh-4rem)] lg:h-auto z-45 overflow-y-auto p-4 transition-transform duration-300 ${
