@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
@@ -38,13 +39,8 @@ Route::post('/update_member',[UserController::class,'update'])->name('update_mem
 
 Route::get('/view_user/{user}',[DashboardController::class,'admin'])->name('view_user');
 
-Route::get('/documents',function(){
-    $users = User::all();
-
-    return Inertia::render('admin/documents/index',[
-        'users' => $users
-    ]);
-})->name('documents');
+Route::get('/documents',[DocumentTypeController::class,'index'])->name('documents');
+Route::get('/create_document_type',[DocumentTypeController::class,'create'])->name('create_document_type');
 
 
 Route::post('/submit',[FormController::class,'store'])->name('submit');

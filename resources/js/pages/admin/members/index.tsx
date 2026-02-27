@@ -5,7 +5,7 @@ import AdminLayout from "@/layouts/admin-layout";
 import CreateLink from "@/components/create-link";
 
 
-export default function Documents({users}) {
+export default function Members({users}) {
     const columns = [
         "first_name",
         "last_name",

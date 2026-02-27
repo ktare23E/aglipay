@@ -1,4 +1,5 @@
 import { Head,useForm } from '@inertiajs/react';
+import { sileo, Toaster } from "sileo";
 import AdminLayout from '@/layouts/admin-layout';
 import BackLink from '@/components/back-link';
 import InputError from '@/components/input-error';
@@ -22,15 +23,29 @@ export default function CreateMember() {
         post(route('store_member'), {
             onSuccess: (page) => {
                 // Show success alert
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Member Created',
-                    text: 'The member has been successfully created!',
-                }).then(() => {
-                    setTimeout(()=> {
-                        location.href = '/documents'
-                    },500)
+                // Swal.fire({
+                //     icon: 'success',
+                //     title: 'Member Created',
+                //     text: 'The member has been successfully created!',
+                // }).then(() => {
+                //     setTimeout(()=> {
+                //         location.href = '/documents'
+                //     },500)
+
+
+                sileo.success({
+                    title: "Member Created",
+                    fill: "black",
+                    styles: {
+                        title: "text-white!",
+                        description: "text-white/75!",
+                    },
                 });
+                setTimeout(() => {
+                    location.href = '/members';
+                }, 1500);
+
+                // });
 
                 // Optionally reset the form
                 // reset();
@@ -50,8 +65,9 @@ export default function CreateMember() {
     return (
         <AdminLayout>
             <Head title="Create Member" />
+            <Toaster position="top-right" theme='dark' />
 
-            <BackLink routeName="documents" />
+            <BackLink routeName="members" />
             <div className="mb-4 text-center">
                 <h1 className="text-xl font-semibold">Create Members</h1>
             </div>

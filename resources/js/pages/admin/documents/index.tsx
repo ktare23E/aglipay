@@ -5,24 +5,20 @@ import AdminLayout from "@/layouts/admin-layout";
 import CreateLink from "@/components/create-link";
 
 
-export default function Documents({users}) {
+export default function Documents({documentTypes}) {
     const columns = [
-        "first_name",
-        "last_name",
-        "address",
-        "email",
+        "document_type",
+        "status",
         "action"
     ];
 
     const rows = useMemo(() => {
-        return users.map((user) => ({
-            id : user.id,
-            first_name : user.first_name,
-            last_name : user.last_name,
-            address : user.address ?? '----',
-            email : user.email,
+        return documentTypes.map((type) => ({
+            id : type.id,
+            document_type : type.name,
+            status : type.status,
         }))
-    },[users]);
+    },[documentTypes]);
 
 
     return (
@@ -31,8 +27,8 @@ export default function Documents({users}) {
             <Head title="Documents"/>
 
             <div className="mb-4 flex justify-between">
-                <h1 className="text-xl font-semibold">Documents</h1>
-                <CreateLink routeName="create_user" label='Create Member'/>
+                <h1 className="text-xl font-semibold">Document Types</h1>
+                <CreateLink routeName="create_document_type" label='Create Document Type'/>
             </div>
             <div className="p-8 bg-white rounded-xl shadow-xl transition-all hover:shadow-4xl cursor-pointer">
                 <DataTable
@@ -43,17 +39,10 @@ export default function Documents({users}) {
                         action : (row) => (
                             <div className="space-x-1">
                                 <Link
-                                    href={route("edit_user", row.id)}
+                                    href={route("edit_document_type", row.id)}
                                     className="bg-blue-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-blue-700"
                                 >
                                     edit
-                                </Link>
-
-                                <Link
-                                    href={route("view_user", row.id)}
-                                    className="bg-green-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-green-700"
-                                >
-                                    view
                                 </Link>
                             </div>
                         )
