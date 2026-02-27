@@ -31,6 +31,7 @@ return Inertia::render('testing',[
 Route::get('/dashboard',[DashboardController::class,'admin'])->name('dashboard');
 
 
+Route::get('/create_user',[UserController::class,'create'])->name('create_user');
 Route::get('/edit_user/{user}',[UserController::class,'edit'])->name('edit_user');
 Route::get('/view_user/{user}',[DashboardController::class,'admin'])->name('view_user');
 

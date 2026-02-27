@@ -1,7 +1,8 @@
 import { Head,Link } from "@inertiajs/react";
-import { useMemo,useEffect } from "react";
+import { useMemo } from "react";
 import DataTable from "@/components/data-tables";
 import AdminLayout from "@/layouts/admin-layout";
+import CreateLink from "@/components/create-link";
 
 
 export default function Documents({users}) {
@@ -29,7 +30,10 @@ export default function Documents({users}) {
         <AdminLayout>
             <Head title="Documents"/>
 
-            <h1 className="text-xl font-semibold mb-4">Documents</h1>
+            <div className="mb-4 flex justify-between">
+                <h1 className="text-xl font-semibold">Documents</h1>
+                <CreateLink routeName="create_user" label='Create Member'/>
+            </div>
             <div className="p-8 bg-white rounded-xl shadow-xl transition-all hover:shadow-4xl cursor-pointer">
                 <DataTable
                     columns={columns}
