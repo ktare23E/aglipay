@@ -30,6 +30,19 @@ class DocumentTypeController extends Controller
     }
 
     public function edit(DocumentType $document_type){
-        return $document_type;
+
+        return Inertia::render('admin/documents/edit',[
+            'document_type' => $document_type
+        ]);
+    }
+
+    public function update(Request $request){
+        $data = $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+        ]);
+
+        DocumentType::find($request->id)->update($data);
+
     }
 }

@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 
-export default function CreateMember({user}) {
+export default function EditMember({user}) {
     const {data,setData,post,processing, errors } = useForm({
         id : user.id,
         first_name : user.first_name,

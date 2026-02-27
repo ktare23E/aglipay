@@ -43,6 +43,8 @@ Route::get('/documents',[DocumentTypeController::class,'index'])->name('document
 Route::get('/create_document_type',[DocumentTypeController::class,'create'])->name('create_document_type');
 Route::post('/store_document_type',[DocumentTypeController::class,'store'])->name('store_document_type');
 Route::get('/edit_document_type/{document_type}',[DocumentTypeController::class,'edit'])->name('edit_document_type');
+Route::post('/update_document_type',[DocumentTypeController::class,'update'])->name('update_document_type');
+
 
 
 
