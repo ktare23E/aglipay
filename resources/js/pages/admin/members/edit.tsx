@@ -7,25 +7,24 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 
-export default function CreateMember() {
+export default function CreateMember({user}) {
     const {data,setData,post,processing, errors } = useForm({
-        first_name : '',
-        last_name : '',
-        address : '',
-        email : '',
-        password : '',
+        id : user.id,
+        first_name : user.first_name,
+        last_name : user.last_name,
+        email : user.email,
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('store_member'), {
+        post(route('update_member'), {
             onSuccess: (page) => {
                 // Show success alert
                 Swal.fire({
                     icon: 'success',
-                    title: 'Member Created',
-                    text: 'The member has been successfully created!',
+                    title: 'Member Updated',
+                    text: 'The member has been successfully updated!',
                 }).then(() => {
                     setTimeout(()=> {
                         location.href = '/documents'
@@ -53,7 +52,7 @@ export default function CreateMember() {
 
             <BackLink routeName="documents" />
             <div className="mb-4 text-center">
-                <h1 className="text-xl font-semibold">Create Members</h1>
+                <h1 className="text-xl font-semibold">Edit Member</h1>
             </div>
             <div className="hover:shadow-4xl mx-auto max-w-[90%] cursor-pointer rounded-xl bg-white p-8 shadow-xl transition-all">
                 <form onSubmit={submit} className="flex flex-col gap-6">
@@ -114,28 +113,9 @@ export default function CreateMember() {
                             message={errors.email}
                             />
                         </div>
-
-                        <div className="grid gap-2">
-                            <Label htmlFor="password">Password</Label>
-                            <Input
-                                id="password"
-                                type="password"
-                                value={data.password}
-                                onChange={(e) => setData('password',e.target.value)}
-                                required
-                                tabIndex={4}
-                                autoComplete="new-password"
-                                name="password"
-                                placeholder="Password"
-                            />
-                            <InputError
-                                message={errors.password}
-                            />
-                        </div>
-
                         <Button disabled={processing}>
                             {processing && <Spinner />}
-                            Create member
+                            Update member
                         </Button>
                     </div>
                 </form>

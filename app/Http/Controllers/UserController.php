@@ -8,10 +8,6 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function edit(User $user){
-        return $user;
-    }
-
     public function create(){
         return Inertia::render('admin/members/create');
     }
@@ -25,5 +21,22 @@ class UserController extends Controller
         ]);
 
         User::create($data);
+    }
+
+    public function edit(User $user){
+        return Inertia::render('admin/members/edit',[
+            'user' => $user
+        ]);
+    }
+
+
+    public function update(Request $request){
+        $data = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+        ]);
+
+        User::find($request->id)->update($data);
     }
 }
