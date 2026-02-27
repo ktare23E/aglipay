@@ -32,6 +32,7 @@ Route::get('/dashboard',[DashboardController::class,'admin'])->name('dashboard')
 
 
 Route::get('/create_user',[UserController::class,'create'])->name('create_user');
+Route::post('/store_member',[UserController::class,'store'])->name('store_member');
 Route::get('/edit_user/{user}',[UserController::class,'edit'])->name('edit_user');
 Route::get('/view_user/{user}',[DashboardController::class,'admin'])->name('view_user');
 

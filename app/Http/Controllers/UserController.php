@@ -15,4 +15,15 @@ class UserController extends Controller
     public function create(){
         return Inertia::render('admin/members/create');
     }
+
+    public function store(Request $request){
+        $data = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        User::create($data);
+    }
 }
