@@ -41,6 +41,10 @@ Route::get('/view_user/{user}',[DashboardController::class,'admin'])->name('view
 
 Route::get('/documents',[DocumentTypeController::class,'index'])->name('documents');
 Route::get('/create_document_type',[DocumentTypeController::class,'create'])->name('create_document_type');
+Route::post('/store_document_type',[DocumentTypeController::class,'store'])->name('store_document_type');
+Route::get('/edit_document_type/{document_type}',[DocumentTypeController::class,'edit'])->name('edit_document_type');
+
+
 
 
 Route::post('/submit',[FormController::class,'store'])->name('submit');

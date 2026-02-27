@@ -19,4 +19,17 @@ class DocumentTypeController extends Controller
     public function create(){
         return Inertia::render('admin/documents/create');
     }
+
+    public function store(Request $request){
+        $data = $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+        ]);
+
+        DocumentType::create($data);
+    }
+
+    public function edit(DocumentType $document_type){
+        return $document_type;
+    }
 }
