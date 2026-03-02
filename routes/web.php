@@ -29,21 +29,27 @@ return Inertia::render('testing',[
     ]);
 });
 
-Route::get('/dashboard',[DashboardController::class,'admin'])->name('dashboard');
 
-Route::get('/members',[UserController::class,'index'])->name('members');
-Route::get('/create_user',[UserController::class,'create'])->name('create_user');
-Route::post('/store_member',[UserController::class,'store'])->name('store_member');
-Route::get('/edit_user/{user}',[UserController::class,'edit'])->name('edit_user');
-Route::post('/update_member',[UserController::class,'update'])->name('update_member');
+Route::middleware('auth')->group(function(){
+    Route::middleware(['checkUserType:Admin'])->group(function(){
+        Route::get('/dashboard',[DashboardController::class,'admin'])->name('dashboard');
 
-Route::get('/view_user/{user}',[DashboardController::class,'admin'])->name('view_user');
+        Route::get('/members',[UserController::class,'index'])->name('members');
+        Route::get('/create_user',[UserController::class,'create'])->name('create_user');
+        Route::post('/store_member',[UserController::class,'store'])->name('store_member');
+        Route::get('/edit_user/{user}',[UserController::class,'edit'])->name('edit_user');
+        Route::post('/update_member',[UserController::class,'update'])->name('update_member');
 
-Route::get('/documents',[DocumentTypeController::class,'index'])->name('documents');
-Route::get('/create_document_type',[DocumentTypeController::class,'create'])->name('create_document_type');
-Route::post('/store_document_type',[DocumentTypeController::class,'store'])->name('store_document_type');
-Route::get('/edit_document_type/{document_type}',[DocumentTypeController::class,'edit'])->name('edit_document_type');
-Route::post('/update_document_type',[DocumentTypeController::class,'update'])->name('update_document_type');
+        Route::get('/view_user/{user}',[DashboardController::class,'admin'])->name('view_user');
+
+        Route::get('/documents',[DocumentTypeController::class,'index'])->name('documents');
+        Route::get('/create_document_type',[DocumentTypeController::class,'create'])->name('create_document_type');
+        Route::post('/store_document_type',[DocumentTypeController::class,'store'])->name('store_document_type');
+        Route::get('/edit_document_type/{document_type}',[DocumentTypeController::class,'edit'])->name('edit_document_type');
+        Route::post('/update_document_type',[DocumentTypeController::class,'update'])->name('update_document_type');
+    });
+});
+
 
 
 
