@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import DataTable from "@/components/data-tables";
 import AdminLayout from "@/layouts/admin-layout";
 import CreateLink from "@/components/create-link";
+import EditLink from "@/components/edit-link";
 
 
 export default function Members({users}) {
@@ -42,13 +43,11 @@ export default function Members({users}) {
                     renderers={{
                         action : (row) => (
                             <div className="space-x-1">
-                                <Link
-                                    href={route("edit_user", row.id)}
-                                    className="bg-blue-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-blue-700"
-                                >
-                                    edit
-                                </Link>
-
+                                <EditLink
+                                    routeName="edit_user"
+                                    label="edit"
+                                    params={row.id}
+                                    />
                                 <Link
                                     href={route("view_user", row.id)}
                                     className="bg-green-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-green-700"

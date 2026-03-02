@@ -50,7 +50,7 @@ export default function EditMember({user}) {
         <AdminLayout>
             <Head title="Create Member" />
 
-            <BackLink routeName="documents" />
+            <BackLink routeName="members" />
             <div className="mb-4 text-center">
                 <h1 className="text-xl font-semibold">Edit Member</h1>
             </div>

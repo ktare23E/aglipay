@@ -1,20 +1,20 @@
 import { Link } from "@inertiajs/react";
 
-type CreateLinkProps = {
+type EditLinkProps = {
     routeName : string,
     label : string,
     params?: Record<string,any>,
 }
 
-export default function CreateLink({
+export default function EditLink({
     routeName,
     label,
     params = {}
-}:CreateLinkProps){
+}:EditLinkProps){
     return (
         <>
             <Link
-                className="py-1 px-3 bg-green-500 text-md rounded-xs text-white"
+                className="bg-blue-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-blue-700"
                 href={route(routeName,params)}
             >
                 {label}
