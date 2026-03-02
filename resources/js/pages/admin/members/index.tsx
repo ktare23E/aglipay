@@ -4,6 +4,7 @@ import DataTable from "@/components/data-tables";
 import AdminLayout from "@/layouts/admin-layout";
 import CreateLink from "@/components/create-link";
 import EditLink from "@/components/edit-link";
+import ViewLink from "@/components/view-link";
 
 
 export default function Members({users}) {
@@ -48,12 +49,11 @@ export default function Members({users}) {
                                     label="edit"
                                     params={row.id}
                                     />
-                                <Link
-                                    href={route("view_user", row.id)}
-                                    className="bg-green-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-green-700"
-                                >
-                                    view
-                                </Link>
+                                <ViewLink
+                                    routeName="view_user"
+                                    label="view"
+                                    params={row.id}
+                                    />
                             </div>
                         )
                     }}
