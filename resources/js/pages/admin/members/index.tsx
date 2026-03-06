@@ -1,20 +1,33 @@
-import { Head,Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import { useMemo } from "react";
-import DataTable from "@/components/data-tables";
-import AdminLayout from "@/layouts/admin-layout";
+
 import CreateLink from "@/components/create-link";
+import DataTable from "@/components/data-tables";
 import EditLink from "@/components/edit-link";
 import ViewLink from "@/components/view-link";
+import AdminLayout from "@/layouts/admin-layout";
 
+type Member = {
+    id : number,
+    first_name : string,
+    last_name : string,
+    address? : string | null,
+    email : string
+}
 
-export default function Members({users}) {
+type MembersProps = {
+    users : Member[]
+}
+
+export default function Members({users}: MembersProps) {
     const columns = [
         "first_name",
         "last_name",
         "address",
         "email",
         "action"
-    ];
+    ] as const;
+
 
     const rows = useMemo(() => {
         return users.map((user) => ({
@@ -42,7 +55,7 @@ export default function Members({users}) {
                     rows={rows}
                     className="text-sm"
                     renderers={{
-                        action : (row) => (
+                        action : (row ) => (
                             <div className="space-x-1">
                                 <EditLink
                                     routeName="edit_user"

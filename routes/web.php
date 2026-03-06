@@ -11,14 +11,7 @@ use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
 Route::get('/', function () {
-
-    $user = User::all();
-    // return $user;
-
-    return Inertia::render('welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
-        'user' => $user
-    ]);
+    return Inertia::render('login');
 })->name('home');
 
 
