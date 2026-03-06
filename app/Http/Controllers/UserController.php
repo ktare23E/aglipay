@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index(){
         $users = User::all();
-        
+
         return Inertia::render('admin/members/index',[
             'users' => $users
         ]);
@@ -45,5 +45,12 @@ class UserController extends Controller
         ]);
 
         User::find($request->id)->update($data);
+    }
+
+    public function view(User $user){
+        
+        return Inertia::render('admin/members/view',[
+            'user' => $user
+        ]);
     }
 }

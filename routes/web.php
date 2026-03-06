@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/edit_user/{user}',[UserController::class,'edit'])->name('edit_user');
         Route::post('/update_member',[UserController::class,'update'])->name('update_member');
 
-        Route::get('/view_user/{user}',[DashboardController::class,'admin'])->name('view_user');
+        Route::get('/view_user/{user}',[UserController::class,'view'])->name('view_user');
 
         Route::get('/documents',[DocumentTypeController::class,'index'])->name('documents');
         Route::get('/create_document_type',[DocumentTypeController::class,'create'])->name('create_document_type');
