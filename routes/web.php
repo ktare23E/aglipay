@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\ScanController;
 use App\Http\Controllers\ScanDocuments;
 use App\Http\Controllers\UserController;
 use App\Models\User;
@@ -43,7 +44,7 @@ Route::middleware('auth')->group(function(){
         Route::post('/update_document_type',[DocumentTypeController::class,'update'])->name('update_document_type');
 
         Route::get('/scan',[ScanDocuments::class,'index'])->name('scan');
-
+        Route::post('/scan', [ScanController::class, 'scan'])->name('scan.document');
     });
 });
 

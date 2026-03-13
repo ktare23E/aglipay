@@ -1,7 +1,46 @@
 import { Head } from "@inertiajs/react";
+import axios from "axios";
+import { useState } from "react";
 import AdminLayout from "@/layouts/admin-layout";
 
+
 export default function Scan() {
+
+    const [file,setFile] = useState<File | null>(null);
+    const [preview,setPreview] = useState<string | null>(null);
+    const [ocrText,setOcrText] = useState("");
+
+    const handleFileChange = (e:any) => {
+
+        const selected = e.target.files[0];
+
+        if(!selected) return;
+
+        setFile(selected);
+        setPreview(URL.createObjectURL(selected));
+    }
+
+    const startScan = async () => {
+
+        if(!file) return;
+
+        const formData = new FormData();
+        formData.append("file",file);
+
+        const res = await axios.post("/scan",formData,{
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }
+        });
+
+        setOcrText(res.data.text);
+    }
+
+    const reset = () => {
+        setFile(null);
+        setPreview(null);
+        setOcrText("");
+    }
 
     return (
         <AdminLayout>
@@ -11,110 +50,66 @@ export default function Scan() {
                 <h1 className="text-xl font-semibold">Scan Document</h1>
 
                 <div className="flex gap-2">
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                    <button
+                        onClick={startScan}
+                        className="px-4 py-2 bg-blue-600 text-white rounded-md"
+                    >
                         Start Scan
                     </button>
 
-                    <button className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300">
+                    <button
+                        onClick={reset}
+                        className="px-4 py-2 bg-gray-200 rounded-md"
+                    >
                         Reset
                     </button>
 
-                    <button className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
-                        Save Result
-                    </button>
                 </div>
             </div>
 
             <div className="grid grid-cols-2 gap-6">
 
-                {/* LEFT SIDE - DOCUMENT PREVIEW */}
+                {/* LEFT SIDE */}
                 <div className="bg-white p-6 rounded-lg shadow">
 
                     <h2 className="text-lg font-semibold mb-4">
                         Document Preview
                     </h2>
 
-                    {/* Upload */}
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center mb-6">
-                        <p className="text-gray-500 mb-2">
-                            Upload or Drag Document
-                        </p>
+                    <input
+                        type="file"
+                        onChange={handleFileChange}
+                    />
 
-                        <input
-                            type="file"
-                            className="block mx-auto text-sm"
-                        />
-                    </div>
+                    <div className="h-[400px] border mt-4 flex items-center justify-center">
 
-                    {/* Preview Area */}
-                    <div className="h-[400px] border rounded-md flex items-center justify-center bg-gray-50">
-                        <p className="text-gray-400">
-                            Document preview will appear here
-                        </p>
+                        {preview ? (
+                            <img
+                                src={preview}
+                                className="max-h-[380px]"
+                            />
+                        ) : (
+                            <p className="text-gray-400">
+                                Document preview will appear here
+                            </p>
+                        )}
+
                     </div>
 
                 </div>
 
-
-                {/* RIGHT SIDE - OCR RESULT + ANNOTATION */}
+                {/* RIGHT SIDE */}
                 <div className="bg-white p-6 rounded-lg shadow">
 
                     <h2 className="text-lg font-semibold mb-4">
                         OCR Text Result
                     </h2>
 
-                    {/* OCR Extracted Text */}
                     <textarea
-                        className="w-full h-[200px] border rounded-md p-3 text-sm"
-                        placeholder="Extracted OCR text will appear here..."
+                        value={ocrText}
+                        onChange={(e)=>setOcrText(e.target.value)}
+                        className="w-full h-[400px] border rounded-md p-3 text-sm"
                     />
-
-                    {/* Annotation Tools */}
-                    <div className="mt-6">
-
-                        <h3 className="text-md font-semibold mb-3">
-                            Text Annotation
-                        </h3>
-
-                        <div className="flex gap-2 flex-wrap">
-
-                            <button className="px-3 py-1 text-sm bg-yellow-200 rounded">
-                                Highlight
-                            </button>
-
-                            <button className="px-3 py-1 text-sm bg-blue-200 rounded">
-                                Tag Name
-                            </button>
-
-                            <button className="px-3 py-1 text-sm bg-green-200 rounded">
-                                Tag Address
-                            </button>
-
-                            <button className="px-3 py-1 text-sm bg-purple-200 rounded">
-                                Tag Date
-                            </button>
-
-                            <button className="px-3 py-1 text-sm bg-red-200 rounded">
-                                Remove Tag
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    {/* Annotation Output */}
-                    <div className="mt-6">
-
-                        <h3 className="text-md font-semibold mb-3">
-                            Annotation Data
-                        </h3>
-
-                        <div className="border rounded-md p-4 bg-gray-50 h-[120px] overflow-auto text-sm">
-                            Annotation results will appear here...
-                        </div>
-
-                    </div>
 
                 </div>
 
