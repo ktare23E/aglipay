@@ -84,7 +84,8 @@ export default function AdminLayout({children}: AdminLayoutProps) {
                         </span>
                     </button>
 
-                    <div className="text-xl font-bold text-blue-900">
+                    <div className="text-xl font-bold text-blue-900 flex gap-2 items-center">
+                        <img src="./imgs/icon.png" className="w-14 rounded-full" alt="" />
                         Admin<span className="text-indigo-800">Panel</span>
                     </div>
 
