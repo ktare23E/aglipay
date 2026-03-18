@@ -10,8 +10,8 @@ export default function AuthSimpleLayout({
 }: AuthLayoutProps) {
     return (
         <div className="flex min-h-svh flex-col items-center justify-center gap-6 p-6  bg-gray-200">
-            <div className="w-full max-w-sm">
-                <div className="flex flex-col gap-8 border-2 rounded-sm p-4 bg-white w-full shadow-lg hover:shadow-2xl transition-all">
+            <div className="w-full max-w-md">
+                <div className="flex flex-col gap-8 border-2 rounded-md p-4 bg-white w-full shadow-lg hover:shadow-2xl transition-all">
                     <div className="flex flex-col items-center gap-4">
                         <Link
                             href={home()}
