@@ -11,13 +11,13 @@ class DocumentTypeController extends Controller
     public function index(){
         $documentTypes = DocumentType::all();
 
-        return Inertia::render('admin/documents/index',[
+        return Inertia::render('admin/type/index',[
             'documentTypes' => $documentTypes
         ]);
     }
 
     public function create(){
-        return Inertia::render('admin/documents/create');
+        return Inertia::render('admin/type/create');
     }
 
     public function store(Request $request){
@@ -31,7 +31,7 @@ class DocumentTypeController extends Controller
 
     public function edit(DocumentType $document_type){
 
-        return Inertia::render('admin/documents/edit',[
+        return Inertia::render('admin/type/edit',[
             'document_type' => $document_type
         ]);
     }

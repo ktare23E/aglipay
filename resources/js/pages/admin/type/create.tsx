@@ -8,22 +8,21 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 
-export default function EditDocument({document_type}) {
+export default function CreateDocumentType() {
 
     const {data,setData,post,processing, errors } = useForm({
-        id : document_type.id,
-        name : document_type.name,
-        status : document_type.status,
+        name : '',
+        status : 'Active',
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('update_document_type'), {
+        post(route('store_document_type'), {
             onSuccess: (page) => {
 
                 sileo.success({
-                    title: "Member Updated",
+                    title: "Member Created",
                     fill: "black",
                     styles: {
                         title: "text-white!",
@@ -31,7 +30,7 @@ export default function EditDocument({document_type}) {
                     },
                 });
                 setTimeout(() => {
-                    location.href = '/documents';
+                    location.href = '/document_type';
                 }, 1500);
             },
             onError: (errors) => {
@@ -48,12 +47,12 @@ export default function EditDocument({document_type}) {
 
     return (
         <AdminLayout>
-            <Head title="Edit Document Type" />
+            <Head title="Create Document Type" />
             <Toaster position="top-right" theme='dark' />
 
-            <BackLink routeName="documents" />
+            <BackLink routeName="document_type" />
             <div className="mb-4 text-center">
-                <h1 className="text-xl font-semibold">Edit Document Type</h1>
+                <h1 className="text-xl font-semibold">Create Document Type</h1>
             </div>
             <div className="hover:shadow-4xl mx-auto max-w-[90%] cursor-pointer rounded-xl bg-white p-8 shadow-xl transition-all">
                 <form onSubmit={submit} className="flex flex-col gap-6">
@@ -91,9 +90,14 @@ export default function EditDocument({document_type}) {
 
                             <InputError message={errors.status} />
                         </div>
+
+
+
+
+
                         <Button disabled={processing}>
                             {processing && <Spinner />}
-                            Update document type
+                            Create document type
                         </Button>
                     </div>
                 </form>

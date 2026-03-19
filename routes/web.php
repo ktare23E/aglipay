@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ScanController;
 use App\Http\Controllers\ScanDocuments;
+use App\Http\Controllers\SystemLogController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +39,7 @@ Route::middleware('auth')->group(function(){
 
         Route::get('/view_user/{user}',[UserController::class,'view'])->name('view_user');
 
-        Route::get('/documents',[DocumentTypeController::class,'index'])->name('documents');
+        Route::get('/document_type',[DocumentTypeController::class,'index'])->name('document_type');
         Route::get('/create_document_type',[DocumentTypeController::class,'create'])->name('create_document_type');
         Route::post('/store_document_type',[DocumentTypeController::class,'store'])->name('store_document_type');
         Route::get('/edit_document_type/{document_type}',[DocumentTypeController::class,'edit'])->name('edit_document_type');
@@ -45,6 +47,11 @@ Route::middleware('auth')->group(function(){
 
         Route::get('/scan',[ScanDocuments::class,'index'])->name('scan');
         Route::post('/scan', [ScanController::class, 'scan'])->name('scan.document');
+
+        Route::get('/documents',[DocumentController::class,'index'])->name('documents');
+
+        Route::get('/sytem_logs',[SystemLogController::class,'index'])->name('sytem_logs');
+
     });
 });
 
