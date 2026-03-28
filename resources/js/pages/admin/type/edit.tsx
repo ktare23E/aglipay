@@ -23,7 +23,7 @@ export default function EditDocumentType({document_type}) {
             onSuccess: (page) => {
 
                 sileo.success({
-                    title: "Member Updated",
+                    title: "Document Type Updated",
                     fill: "black",
                     styles: {
                         title: "text-white!",

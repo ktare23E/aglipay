@@ -22,7 +22,7 @@ export default function CreateDocumentType() {
             onSuccess: (page) => {
 
                 sileo.success({
-                    title: "Member Created",
+                    title: "Document Type Created",
                     fill: "black",
                     styles: {
                         title: "text-white!",
