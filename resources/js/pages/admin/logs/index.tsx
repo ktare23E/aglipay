@@ -1,14 +1,19 @@
-import { Head, Link } from "@inertiajs/react";
-import { useMemo } from "react";
+import { Head } from "@inertiajs/react";
+import { useMemo, useState } from "react";
 import DataTable from "@/components/data-tables";
 import AdminLayout from "@/layouts/admin-layout";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/themes/material_blue.css";
 
 export default function Logs() {
+
     const columns = [
         "user",
         "logs",
         "date",
     ];
+
+    const [dateRange, setDateRange] = useState([]);
 
     const rows = useMemo(() => {
         return [
@@ -75,18 +80,64 @@ export default function Logs() {
         ];
     }, []);
 
+    // ✅ FILTER LOGIC (DATE RANGE)
+    const filteredRows = useMemo(() => {
+        return rows.filter(row => {
+            if (dateRange.length !== 2) return true;
+
+            const rowDate = new Date(row.date);
+            const start = new Date(dateRange[0]);
+            const end = new Date(dateRange[1]);
+
+            // include whole end day
+            end.setHours(23, 59, 59, 999);
+
+            return rowDate >= start && rowDate <= end;
+        });
+    }, [rows, dateRange]);
+
     return (
         <AdminLayout>
             <Head title="System Logs"/>
 
-            <div className="mb-4 flex justify-between">
-                <h1 className="text-xl font-semibold">System Logs</h1>
+            <div className="mb-4 flex justify-between items-center">
+                <div>
+                    <h1 className="text-xl font-semibold">System Logs</h1>
+
+                    {/* ✅ DATE RANGE FILTER */}
+                    <div className="mt-2 flex gap-3 items-center">
+
+                        <Flatpickr
+                            value={dateRange}
+                            onChange={(dates) => setDateRange(dates)}
+                            options={{
+                                mode: "range",
+                                dateFormat: "Y-m-d",
+                            }}
+                            className="border border-gray-300 bg-white px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Select date range"
+                        />
+
+                        {/* Clear */}
+                        <button
+                            onClick={() => setDateRange([])}
+                            className="bg-gray-200 px-3 py-2 rounded-lg hover:bg-gray-300"
+                        >
+                            Clear
+                        </button>
+
+                    </div>
+                </div>
+
+                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                    Print Report
+                </button>
             </div>
 
-            <div className="p-8 bg-white rounded-xl shadow-xl transition-all hover:shadow-4xl cursor-pointer">
+            <div className="p-8 bg-white rounded-xl shadow-xl transition-all hover:shadow-2xl">
                 <DataTable
                     columns={columns}
-                    rows={rows}
+                    rows={filteredRows}
                     className="text-sm"
                 />
             </div>
