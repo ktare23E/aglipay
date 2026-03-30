@@ -16,7 +16,7 @@ export default function Documents() {
     const document_types = [
         "All",
         "Wedding Certificate",
-        "Birth Certificate",
+        "Baptismal",
         "Death Certificate",
         "Baptismal"
     ];
@@ -206,6 +206,9 @@ export default function Documents() {
                         Print Report
                     </button>
                 </div>
+            </div>
+            <div className="mb-4 font-semibold text-sm">
+                <p>Totol Documents: {filteredRows.length}</p>
             </div>
 
             {/* TABLE */}
